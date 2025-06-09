@@ -1,6 +1,6 @@
 const express = require("express");
 const { connectDB, sequelize } = require("../config/database");
-const User = require("./models/User"); // Importa el modelo User
+const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
 const cors = require("cors");
 
@@ -19,8 +19,7 @@ app.use("/api/users", userRoutes);
 // Sincronizar modelos con la base de datos y levantar el servidor
 const startServer = async () => {
   await connectDB();
-  // Solo sincroniza el modelo User por ahora.
-  await sequelize.sync({ force: false }); // force: true para recrear tablas, ¡cuidado!
+  await sequelize.sync({ force: false });
   console.log("Database synced!");
 
   app.listen(PORT, () => {
