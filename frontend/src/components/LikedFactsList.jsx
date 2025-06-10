@@ -1,7 +1,7 @@
 // SSCatFacts/frontend/src/components/LikedFactsList.jsx
 
 import React, { useEffect, useState } from "react";
-import { getLikedCatFacts } from "../api";
+import { getLikedCatFacts } from "../services/api";
 
 function LikedFactsList({ userId, triggerRefresh }) {
   const [likedFacts, setLikedFacts] = useState([]);
@@ -27,7 +27,7 @@ function LikedFactsList({ userId, triggerRefresh }) {
         setLikedFacts([]);
       }
     } catch (err) {
-      setError("Error al cargar hechos favoritos.");
+      setError("Error al cargar Facts favoritos.");
       console.error("Error fetching liked facts:", err);
       setLikedFacts([]);
     } finally {
@@ -42,18 +42,18 @@ function LikedFactsList({ userId, triggerRefresh }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md w-full flex flex-col h-96">
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">
-        Tus Hechos Favoritos
+        Tus Facts Favoritos
       </h2>
       {loading && <p className="text-center text-gray-500">Cargando...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
       {!loading && likedFacts.length === 0 && !error && userId && (
         <p className="text-center text-gray-500">
-          Aún no has marcado ningún hecho como favorito.
+          Aún no has marcado ningún Fact como favorito.
         </p>
       )}
       {!userId && (
         <p className="text-center text-gray-500">
-          Inicia sesión para ver tus hechos favoritos.
+          Inicia sesión para ver tus Facts favoritos.
         </p>
       )}
 

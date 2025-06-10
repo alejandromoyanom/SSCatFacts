@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getExternalCatFact, likeCatFact } from "../api";
+import { getExternalCatFact, likeCatFact } from "../services/api";
 
 function CatFactCard({ userId, onFactLiked }) {
   const [currentFact, setCurrentFact] = useState(null);
@@ -9,9 +9,9 @@ function CatFactCard({ userId, onFactLiked }) {
     setMessage("");
     try {
       const data = await getExternalCatFact();
-      setCurrentFact(data.fact); // La API devuelve { fact: "...", length: ... }
+      setCurrentFact(data.fact);
     } catch (error) {
-      setMessage("Error al obtener el hecho del gato.");
+      setMessage("Error al obtener el fact del gato.");
       console.error(error);
     }
   };
@@ -19,19 +19,18 @@ function CatFactCard({ userId, onFactLiked }) {
   const handleLikeFact = async () => {
     setMessage("");
     if (!userId) {
-      setMessage('Debes iniciar sesión para marcar un hecho como "me gusta".');
+      setMessage('Debes iniciar sesión para marcar un fact como "me gusta".');
       return;
     }
     if (!currentFact) {
-      setMessage('Primero obtén un hecho para poder "likearlo".');
+      setMessage('Primero obtén un fact para poder "likearlo".');
       return;
     }
 
     try {
-      // Usamos el texto del hecho como factId para la base de datos
       const data = await likeCatFact(userId, currentFact);
       setMessage(data.message);
-      onFactLiked(); // Notifica al componente padre para que actualice las listas
+      onFactLiked();
     } catch (error) {
       setMessage(
         error.response?.data?.message || 'Error al marcar como "me gusta".'
@@ -43,22 +42,22 @@ function CatFactCard({ userId, onFactLiked }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">
-        Hecho de Gato
+        Cat Fact
       </h2>
       {currentFact ? (
         <p className="text-gray-700 text-lg mb-4 text-center">{currentFact}</p>
       ) : (
         <p className="text-gray-500 text-center">
-          Haz click en "Obtener Hecho" para ver uno.
+          Haz click en "Obtener Fact" para ver uno.
         </p>
       )}
 
       <div className="flex justify-center space-x-4 mt-4">
         <button
           onClick={fetchNewFact}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Obtener Hecho
+          Obtener Fact 🐱
         </button>
         <button
           onClick={handleLikeFact}
@@ -69,13 +68,13 @@ function CatFactCard({ userId, onFactLiked }) {
               : "bg-red-500 hover:bg-red-700 text-white"
           }`}
         >
-          Me Gusta ❤️
+          Me Gusta 🖤
         </button>
       </div>
       {message && (
         <p
           className={`mt-4 text-center ${
-            message.includes("Error") ? "text-red-500" : "text-green-500"
+            message.includes("Error") ? "text-red-500" : "text-green-600"
           }`}
         >
           {message}

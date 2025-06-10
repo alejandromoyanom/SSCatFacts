@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerOrLoginUser } from "../api";
+import { registerOrLoginUser } from "../services/api";
 
 function AuthForm({ onAuthSuccess }) {
   const [username, setUsername] = useState("");
@@ -44,7 +44,7 @@ function AuthForm({ onAuthSuccess }) {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
         >
           Registrar o Iniciar Sesión
         </button>
