@@ -1,5 +1,3 @@
-// SSCatFacts/frontend/src/components/LikedFactsList.jsx
-
 import React, { useEffect, useState } from "react";
 import { getLikedCatFacts } from "../services/api";
 
