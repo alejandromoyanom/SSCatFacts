@@ -4,6 +4,7 @@ const User = require("./models/User");
 const CatFact = require("./models/CatFact");
 const userRoutes = require("./routes/userRoutes");
 const factRoutes = require("./routes/factRoutes");
+const helmet = require("helmet");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -12,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middlewares
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
