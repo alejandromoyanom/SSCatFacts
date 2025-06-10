@@ -15,16 +15,24 @@ const PORT = process.env.PORT || 3001;
 // Middlewares
 app.use(helmet());
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 // Rutas
 app.use("/api/users", userRoutes);
 app.use("/api/facts", factRoutes);
 
 const startServer = async () => {
-  await connectDB();
-  await sequelize.sync({ force: true });
-  console.log("Database synced!");
+  try {
+    await connectDB();
+    await sequelize.sync({ force: true });
+  } catch (error) {
+    console.error("Error connecting to database:", error);
+  }
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

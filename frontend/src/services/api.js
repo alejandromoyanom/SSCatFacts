@@ -1,10 +1,14 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/api";
+const API_BASE_PATH = "/api";
+
+const api = axios.create({
+  baseURL: API_BASE_PATH,
+});
 
 export const registerOrLoginUser = async (username) => {
   try {
-    const response = await axios.post(`${API_URL}/users/register-login`, {
+    const response = await api.post("/users/register-login", {
       username,
     });
     return response.data;
@@ -16,7 +20,7 @@ export const registerOrLoginUser = async (username) => {
 
 export const getExternalCatFact = async () => {
   try {
-    const response = await axios.get(`${API_URL}/facts/external`);
+    const response = await api.get("/facts/external");
     return response.data;
   } catch (error) {
     console.error("Error fetching external cat fact:", error);
@@ -26,7 +30,7 @@ export const getExternalCatFact = async () => {
 
 export const likeCatFact = async (userId, factText) => {
   try {
-    const response = await axios.post(`${API_URL}/facts/like`, {
+    const response = await api.post("/facts/like", {
       userId,
       factText,
     });
@@ -39,7 +43,7 @@ export const likeCatFact = async (userId, factText) => {
 
 export const getLikedCatFacts = async (userId) => {
   try {
-    const response = await axios.get(`${API_URL}/facts/liked/${userId}`);
+    const response = await api.get(`/facts/liked/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching liked cat facts:", error);
@@ -49,7 +53,7 @@ export const getLikedCatFacts = async (userId) => {
 
 export const getPopularCatFacts = async () => {
   try {
-    const response = await axios.get(`${API_URL}/facts/popular`);
+    const response = await api.get("/facts/popular");
     return response.data;
   } catch (error) {
     console.error("Error fetching popular cat facts:", error);

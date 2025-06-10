@@ -13,7 +13,9 @@ function PopularFactsList({ triggerRefresh }) {
       const data = await getPopularCatFacts();
       setPopularFacts(data);
     } catch (err) {
-      setError("Error al cargar Facts populares.");
+      setError(
+        err.response?.data?.message || "Error al cargar Facts populares."
+      );
       console.error("Error fetching popular facts:", err);
     } finally {
       setLoading(false);

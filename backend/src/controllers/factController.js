@@ -2,8 +2,6 @@ const axios = require("axios");
 const CatFact = require("../models/CatFact");
 const User = require("../models/User");
 const { Sequelize, Op } = require("sequelize");
-const { sequelize: dbInstance } = require("../../config/database");
-
 exports.getCatFactFromExternalApi = async (req, res) => {
   try {
     const response = await axios.get("https://catfact.ninja/fact");
@@ -86,7 +84,7 @@ exports.getPopularCatFacts = async (req, res) => {
         [Sequelize.fn("COUNT", Sequelize.col("factId")), "likeCount"],
       ],
       group: ["factText"],
-      order: [[dbInstance.literal('"likeCount"'), "DESC"]],
+      order: [[Sequelize.literal('"likeCount"'), "DESC"]],
       limit: 10,
     });
 
