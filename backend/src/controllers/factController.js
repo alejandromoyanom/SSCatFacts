@@ -68,7 +68,7 @@ exports.getLikedCatFacts = async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
-    res.status(200).json(likedFacts);
+    res.status(200).json(likedFacts || []);
   } catch (error) {
     console.error("Error fetching liked cat facts:", error);
     res.status(500).json({ message: "Internal server error" });
