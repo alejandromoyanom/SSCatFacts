@@ -37,17 +37,20 @@ exports.likeCatFact = async (req, res) => {
     });
 
     if (!created) {
-      return res
-        .status(200)
-        .json({ message: "Cat Fact already liked by this user", catFact });
+      return res.status(200).json({
+        message: "Cat Fact ya está marcado con 'me gusta' por este usuario",
+        catFact,
+      });
     }
 
-    res.status(201).json({ message: "Cat Fact liked successfully", catFact });
+    res
+      .status(201)
+      .json({ message: "Cat Fact marcado como 'me gusta' con éxito", catFact });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
-      return res
-        .status(409)
-        .json({ message: "This fact has already been liked by this user." });
+      return res.status(409).json({
+        message: "Cat Fact ya está marcado con 'me gusta' por este usuario.",
+      });
     }
     console.error("Error liking cat fact:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -68,7 +71,7 @@ exports.getLikedCatFacts = async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
-    res.status(200).json(likedFacts);
+    res.status(200).json(likedFacts || []);
   } catch (error) {
     console.error("Error fetching liked cat facts:", error);
     res.status(500).json({ message: "Internal server error" });
