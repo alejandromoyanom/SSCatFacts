@@ -1,7 +1,9 @@
 const express = require("express");
 const { connectDB, sequelize } = require("../config/database");
 const User = require("./models/User");
+const CatFact = require("./models/CatFact");
 const userRoutes = require("./routes/userRoutes");
+const factRoutes = require("./routes/factRoutes");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -15,11 +17,11 @@ app.use(cors());
 
 // Rutas
 app.use("/api/users", userRoutes);
+app.use("/api/facts", factRoutes);
 
-// Sincronizar modelos con la base de datos y levantar el servidor
 const startServer = async () => {
   await connectDB();
-  await sequelize.sync({ force: false });
+  await sequelize.sync({ force: true });
   console.log("Database synced!");
 
   app.listen(PORT, () => {
