@@ -5,10 +5,6 @@ const User = require("./User");
 const CatFact = sequelize.define(
   "CatFact",
   {
-    factId: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     factText: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -19,7 +15,7 @@ const CatFact = sequelize.define(
     indexes: [
       {
         unique: true,
-        fields: ["UserId", "factId"],
+        fields: ["UserId", "factText"],
       },
     ],
   }
