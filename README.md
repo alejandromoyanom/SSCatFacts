@@ -19,6 +19,7 @@ La Plataforma SSCatFacts es una aplicación web diseñada para los amantes de lo
     * [Pasos para Poner en Marcha la Aplicación](#pasos-para-poner-en-marcha-la-aplicación)
 6.  [Comandos Útiles de Docker Compose](#comandos-útiles-de-docker-compose)
 7.  [Decisiones de Diseño](#decisiones-de-diseño)
+8.  [Principios SOLID Aplicados](#principios-solid-aplicados)
 
 ---
 
@@ -197,3 +198,11 @@ Antes de comenzar, asegúrate de tener instalado:
     * **React:** Se eligió React por su enfoque en componentes reutilizables y declarativos, lo que agiliza el desarrollo de interfaces de usuario complejas y dinámicas, mejorando significativamente la mantenibilidad y la experiencia del usuario.
     * **Vite:** Como herramienta de construcción (build tool), Vite fue seleccionado por su velocidad de desarrollo inigualable. Ofrece un arranque instantáneo del servidor y una recarga en caliente (HMR) ultrarrápida, lo que mejora drásticamente la productividad del desarrollador.
     * **Tailwind CSS:** Para el estilizado de la interfaz, se implementó Tailwind CSS, un *framework* CSS. Permite construir diseños personalizados rápidamente directamente en el marcado JSX, promoviendo la consistencia visual y la eficiencia en el diseño.
+
+### Principios SOLID Aplicados
+
+Si bien en la aplicación aún no se implementa completamente todos los principios SOLID, se han tomado algunas decisiones de diseño que se alinean con estos principios:
+
+- **Principio de Responsabilidad Única (SRP):** El backend sigue una estructura MVC, donde cada componente (Modelo, Vista, Controlador) tiene una responsabilidad específica. Además, el uso de servicios (como [`factService.js`](backend/src/services/factService.js) y [`userService.js`](backend/src/services/userService.js)) ayuda a separar la lógica de negocio de la lógica de la API.
+- **Principio de Abierto/Cerrado (OCP):** El uso de middleware en Express (como `handleApiRequest` en [`apiHandler.js`](backend/src/utils/apiHandler.js)) permite extender la funcionalidad de la API sin modificar el código existente.
+- **Principio de Inversión de Dependencia (DIP):** Aunque no se utiliza una inyección de dependencias explícita, el uso de Sequelize ORM permite una abstracción de la base de datos, lo que facilita el cambio a otra base de datos en el futuro sin modificar la lógica de negocio principal.
